@@ -46,8 +46,9 @@ class Game:
     OP_REVEAL = "reveal"
     OP_REVEAL_NEW = "reveal-new"
 
-    def __init__(self, chat_id, vote_id, initiator, text):
+    def __init__(self, chat_id, vote_id, initiator, text, thread_id):
         self.chat_id = chat_id
+        self.thread_id = thread_id
         self.vote_id = vote_id
         self.initiator = initiator
         self.text = text
@@ -74,7 +75,11 @@ class Game:
         return result
 
     def get_send_kwargs(self):
-        return {"text": self.get_text(), "reply_markup": json.dumps(self.get_markup())}
+        return {
+            "text": self.get_text(),
+            "reply_markup": json.dumps(self.get_markup()),
+            "message_thread_id": self.thread_id
+        }
 
     def get_markup(self):
         points_keys = [
@@ -139,7 +144,7 @@ class Game:
 
     @classmethod
     def from_dict(cls, chat_id, vote_id, dct):
-        res = cls(chat_id, vote_id, dct["initiator"], dct["text"])
+        res = cls(chat_id, vote_id, dct["initiator"], dct["text"], None)
         for user_id, vote in dct["votes"].items():
             res.votes[user_id] = Vote.from_dict(vote)
         res.revealed = dct["revealed"]
@@ -164,8 +169,8 @@ class GameRegistry:
             )
         """)
 
-    def new_game(self, chat_id, incoming_message_id: str, initiator: dict, text: str):
-        return Game(chat_id, incoming_message_id, initiator, text)
+    def new_game(self, chat_id, incoming_message_id: str, initiator: dict, text: str, thread_id):
+        return Game(chat_id, incoming_message_id, initiator, text, thread_id)
 
     async def get_game(self, chat_id, incoming_message_id: str) -> Game:
         query = 'SELECT json_data FROM games WHERE chat_id = ? AND game_id = ?'
