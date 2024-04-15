@@ -5,10 +5,11 @@ import aiosqlite
 
 
 AVAILABLE_POINTS = [
-    "1", "2", "3", "5", "8",
-    "13", "20", "40", "❔", "☕",
+    "0.5", "1", "2", "3", "4",
+    "5", "6", "7", "8", "9",
+    "10", "15", "20", "❔", "☕",
 ]
-HALF_POINTS = len(AVAILABLE_POINTS) // 2
+THIRD_POINTS = len(AVAILABLE_POINTS) // 3
 ALL_MARKS = "♥♦♠♣"
 
 
@@ -93,8 +94,9 @@ class Game:
         return {
             "type": "InlineKeyboardMarkup",
             "inline_keyboard": [
-                points_keys[:HALF_POINTS],
-                points_keys[HALF_POINTS:],
+                points_keys[0:THIRD_POINTS],
+                points_keys[THIRD_POINTS:THIRD_POINTS*2],
+                points_keys[THIRD_POINTS*2:],
                 [
                     {
                         "type": "InlineKeyboardButton",
