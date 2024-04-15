@@ -23,7 +23,7 @@ Currently there is only one scale: 1, 2, 3, 5, 8, 13, 20, 40, ❔, ☕
 bot = Bot(TOKEN)
 storage = GameRegistry()
 init_logging()
-REVEAL_RESTART_COMMANDS = [Game.OP_REVEAL, Game.OP_RESTART, Game.OP_RESTART_NEW, Game.OP_REVEAL_NEW]
+REVEAL_RESTART_COMMANDS = [Game.OP_REVEAL, Game.OP_RESTART]
 
 
 @bot.command("/start")

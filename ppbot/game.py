@@ -103,22 +103,10 @@ class Game:
                     },
                     {
                         "type": "InlineKeyboardButton",
-                        "text": "Restart 🆕",
-                        "callback_data": "{}-click-{}".format(self.OP_RESTART_NEW, self.vote_id),
-                    },
-                ],
-                [
-                    {
-                        "type": "InlineKeyboardButton",
                         "text": "Open Cards",
                         "callback_data": "{}-click-{}".format(self.OP_REVEAL, self.vote_id),
                     },
-                    {
-                        "type": "InlineKeyboardButton",
-                        "text": "Open Cards 🆕",
-                        "callback_data": "{}-click-{}".format(self.OP_REVEAL_NEW, self.vote_id),
-                    },
-                ],
+                ]
             ],
         }
 
